@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CardGame</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <style>
+    body {
+      background-image: url(./cards/background-1.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      /* display: inline-block; */
+      /* position: relative; */
+      /* float: left; */
+      /* 設定子元素在 3D 空間內 */
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: rgba(255, 255, 255, 0);
+      background-clip: border-box;
+      border: 0px solid rgba(0, 0, 0, 0.125);
+      margin: 4px;
+    }
+
+    /* 正面 */
+    .card-front {
+      width: 100%;
+      height: 100%;
+      background-image: url(./cards/1.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      /* 隱藏背面 */
+      backface-visibility: hidden;
+    }
+
+    /* 背面 */
+    .card-back {
+      width: 100%;
+      height: 100%;
+      background-image: url(./cards/back.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      /* 讓兩張卡片的背面朝背面 */
+      transform: rotateY(180deg);
+      /* 隱藏背面 */
+      backface-visibility: hidden;
+    }
+
+    .card-close {
+      transform: rotateY(180deg);
+    }
+
+    .h-35 {
+      height: 35% !important;
+    }
+
+    .h-30 {
+      height: 30% !important;
+    }
+
+    #middle {
+      background-image: url(./cards/background.png);
+      background-position: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      font: bold 25px 微軟正黑體;
+    }
+
+    #middle div>* {
+      font-weight: bold;
+      text-align: center;
+      margin: 15px auto;
+    }
+
+    #middle h3:not(.c) {
+      text-align: left;
+      padding: 0 30px;
+    }
+
+
+    .text {
+      display: none;
+    }
+
+    .text:first-child {
+      display: block;
+    }
+
+    hr {
+      display: block;
+      border-width: 16px !important;
+      width: 65%;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body class="d-flex vh-100 bg-dark">
+  <div id="game" class="container d-flex flex-column align-items-center vh-100 ">
+    <div id="top-row" class="d-flex justify-content-between  align-items-center h-35 vw-100"></div>
+    <div id="middle" class="vw-100 h-30 ">
+      <div class="text p-4 content0 ">
+        <h1>星座配配看</h1>
+        <hr>
+        <h3 class="c">遊戲規則:上排卡牌配對下排卡牌，配對成功後出現星座解析</h3>
+      </div>
+      <div class="text p-4 content1">
+        <h1>牡羊座（3月21日-4月19日）</h1>
+        <h3>
+          牡羊座熱情奔放、勇敢而自信，他們常常是最早嘗試新事物的人，對於挑戰充滿熱情。星座是牡羊座的人有時候會缺乏耐心和細心，需要學習更好地控制自己的情緒和行為。
+        </h3>
+      </div>
+      <div class="text p-4 content2">
+        <h1>金牛座（4月20日-5月20日）</h1>
+        <h3>
+          金牛座勤奮而穩重，他們追求實用性和現實主義。星座是金牛座的人通常非常有耐心和毅力，會一直堅持不懈地追求自己的目標。他們有時候會過分固執和不易妥協，需要學習更好地接受新事物和觀念。
+        </h3>
+      </div>
+      <div class="text p-4 content3">
+        <h1>雙子座（5月21日-6月21日）</h1>
+        <h3>
+          雙子座聰明機智、多才多藝，他們擅長交際和表達，善於與人交流和溝通。星座是雙子座的人有時候會過分表面化和缺乏深度，需要學習更好地專注和深入思考。
+        </h3>
+      </div>
+      <div class="text p-4 content4">
+        <h1>巨蟹座（6月22日-7月22日）</h1>
+        <h3>
+          巨蟹座的人情感豐富、溫柔體貼，他們喜歡照顧和關心身邊的人。星座是巨蟹座的人通常具有很好的直覺和感悟力，能夠深入了解他人的情感和需求。他們有時候會過分敏感和情緒化，需要學習更好地控制自己的情緒。
+        </h3>
+      </div>
+      <div class="text p-4 content5">
+        <h1>獅子座（7月23日-8月22日）</h1>
+        <h3>
+          獅子座自信而慷慨，他們追求成就和公眾關注，喜歡成為焦點。星座是獅子座的人具有強烈的領導能力和表現欲，善於激勵他人。他們有時候會過分自我中心和驕傲，需要學習更好地尊重他人和合作。
+        </h3>
+      </div>
+      <div class="text p-4 content6">
+        <h1>處女座（8月23日-9月22日）</h1>
+        <h3>
+          處女座細心而完美主義，他們追求嚴謹和完美，喜歡事事都精益求精。星座是處女座的人通常具有很好的分析和解決問題能力，能夠做出明智的決策。他們有時候會過分苛求自己和他人，需要學習更好地放寬心態和接受缺陷。
+        </h3>
+      </div>
+      <div class="text p-4 content7">
+        <h1>天秤座（9月23日-10月23日） </h1>
+        <h3>
+          天秤座優雅而和諧，他們喜歡平衡和諧的環境和關係。星座是天秤座的人通常具有很好的審美和社交能力，善於在不同的人群中交流和溝通。他們有時候會過分優柔寡斷和缺乏主見，需要學習更好地表達自己和做出決策。
+        </h3>
+      </div>
+      <div class="text p-4 content8">
+        <h1>天蠍座（10月24日-11月21日）</h1>
+        <h3>
+          天蠍座神秘而熱情，他們充滿強烈的情感和直覺力。星座是天蠍座的人通常非常有自信和魅力，能夠吸引他人的注意力和信任。他們有時候會過分佔有慾和控制欲，需要學習更好地尊重他人和平衡自己的情感。
+        </h3>
+      </div>
+      <div class="text p-4 content9">
+        <h1>射手座（11月22日-12月21日）</h1>
+        <h3>
+          射手座樂觀而自由，他們追求自由和冒險，喜歡探索新事物和新體驗。星座是射手座的人通常具有很好的幽默感和開放心態，能夠輕鬆面對生活中的挑戰。他們有時候會過分冒失和不負責任，需要學習更好地關注他人的感受和責任。
+        </h3>
+      </div>
+      <div class="text p-4 content10">
+        <h1>摩羯座（12月22日-1月19日） </h1>
+        <h3>
+          摩羯座勤勉而堅毅，他們追求穩定和安全，喜歡有計劃地進行事情和達成目標。星座是摩羯座的人通常非常有責任感和紀律性，能夠堅持不懈地追求自己的夢想。他們有時候會過分嚴肅和保守，需要學習更好地放鬆和享受生活。
+        </h3>
+      </div>
+      <div class="text p-4 content11">
+        <h1>水瓶座（1月20日-2月18日） </h1>
+        <h3>
+          水瓶座創意而獨立，他們喜歡思考和探索新的想法和方法。星座是水瓶座的人通常非常開放和進取，能夠不斷創新和改進。他們有時候會過分獨立和固執，需要學習更好地與他人合作和溝通。
+        </h3>
+      </div>
+      <div class="text p-4 content12">
+        <h1>雙魚座（2月19日-3月20日）</h1>
+        <h3>
+          雙魚座敏感而富有想象力，他們充滿著夢想和幻想。星座是雙魚座的人通常非常有同情心和創造力，能夠深刻地理解他人的感受和需要。他們有時候會過分情緒化和沉迷於幻想，需要學習更好地面對現實和掌控自己的情感。
+        </h3>
+      </div>
+      <div class="text p-4 content13">
+        <h1>遊戲結束</h1>
+        <h3 class="c">
+          感謝您的參與^^
+        </h3>
+      </div>
+    </div>
+    <div id="footer-row" class="d-flex justify-content-between align-items-center h-35 vw-100"></div>
+  </div>
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+  <script>
+    // 產生 24 張牌
+    for (let i = 0; i < 24; i++) {
+      let card = $('<div>').addClass('card card-close').append($('<div>').addClass('card-front')).append($('<div>').addClass('card-back'))
+
+      // <div class="card  card-close">
+      //     <div class="card-front"></div>
+      //     <div class="card-back"></div>
+      // </div>
+
+      if (i < 12) $('#top-row').append(card)
+      else $('#footer-row').append(card)
+    }
+
+    // 決定每張數字
+    $('.card').each(function (index) {
+      const number = index % 12 + 1
+      console.log(index, number)
+      if (index < 12) {
+        $(this).find('.card-front').css('background-image', `url(./cards/${number}.png)`)
+      } else {
+        $(this).find('.card-front').css('background-image', `url(./cards/${number}-1.png)`)
+      }
+      // 暫存資料
+      $(this).attr('data-number', number)
+    })
+
+
+
+
+
+
+    // 打亂 #top-row 的牌
+    if ($('#top-row .card').length === 12) {
+      for (let i = 0; i < 20; i++) {
+        const randomA = Math.round(Math.random() * 11)
+        const randomB = Math.round(Math.random() * 11)
+        $('#top-row .card').eq(randomA).insertAfter($('#top-row .card').eq(randomB))
+      }
+    }
+    // 打亂 #footer-row 的牌
+    if ($('#footer-row .card').length === 12) {
+      for (let i = 0; i < 20; i++) {
+        const randomA = Math.round(Math.random() * 11)
+        const randomB = Math.round(Math.random() * 11)
+        $('#footer-row .card').eq(randomA).insertAfter($('#footer-row .card').eq(randomB))
+      }
+    }
+
+
+    // 翻牌
+    $('#game').on('click', '.card', function () {
+      if (
+        // .card 沒有 .card-close 代表被翻開
+        // 如果已翻開數小於兩張
+        $('.card:not(.card-close)').length < 2 &&
+        // 且這張牌還沒翻開
+        $(this).hasClass('card-close') &&
+        // 這張牌還沒配對
+        !$(this).hasClass('card-ok')
+      ) {
+        $(this).removeClass('card-close')
+      }
+
+      // 如果翻開兩張了
+      if ($('.card:not(.card-close)').length === 2) {
+        // 如果兩張一樣
+        if (
+          $('.card:not(.card-close)').eq(0).data('number') ===
+          $('.card:not(.card-close)').eq(1).data('number')
+        ) {
+          let textNum = $('.card:not(.card-close)').eq(0).data('number')
+          $('.card:not(.card-close)').addClass('card-ok')
+          //fadeTo(時間,透明度)
+          $('.card:not(.card-close)').fadeTo(1000, 0)
+          $(`.text`).css('display', 'none');
+          $(`.content${textNum}`).css('display', 'block')
+        }
+
+        // setTimeout(執行的function,延遲時間)
+        setTimeout(function () {
+          // 翻回來
+          $('.card:not(.card-close)').addClass('card-close')
+          // 過關斬將
+          if ($('.card-ok').length === $('.card').length) {
+            $('.card:not(.card-close)').fadeTo(1000, 0)
+            $('.text').css('display', 'none');
+            $('.content13').css('display', 'block');
+            setTimeout(function () {
+              alert('過關')
+            }, 2000)
+          }
+        }, 700)
+      }
+    })
+
+    // showContent()=>{
+
+    // }
+  </script>
+</body>
+
+</html>
